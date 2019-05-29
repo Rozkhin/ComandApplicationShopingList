@@ -11,12 +11,11 @@ public class ProductService {
 
     public Long createProduct(Product product){
         boolean result =validationService.validate(product);
-        Long id=null;
         if(result) {
             Product createdProduct = repository.insert(product);
-            id=createdProduct.getId();
+            return createdProduct.getId();
         }
-        return id;
+        return null;
     }
 
     public Product findProductById(Long id){
