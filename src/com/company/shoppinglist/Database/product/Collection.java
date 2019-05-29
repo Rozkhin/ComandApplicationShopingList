@@ -1,12 +1,10 @@
 package com.company.shoppinglist.Database.product;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
 public  class Collection
 {
-
     Map<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;
 

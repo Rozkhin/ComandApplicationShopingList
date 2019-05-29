@@ -1,6 +1,5 @@
 package com.company.shoppinglist.Service;
 
-
 import com.company.shoppinglist.Database.product.Product;
 
 import java.util.HashSet;
