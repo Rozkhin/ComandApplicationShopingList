@@ -31,6 +31,8 @@ public class ConsoleI {
                         FindProducById();
                         break;
                     case 3:
+                        changeProductDescription();
+                        break;
                     case 4:
                         return;
                 }
@@ -98,11 +100,26 @@ public class ConsoleI {
                 printProduct(prd);
                 break;
             case 2:
-                ArrayList<Product> prdlist = new ArrayList<>();
-                prdlist=productService.GetAllProduct();
-                for (Product prd1:prdlist){
+                ArrayList<Long> Idlist;
+                Idlist=productService.GetAllProduct();
+                for (Long id:Idlist){
+                    Product prd1=productService.findProductById(id);
                     printProduct(prd1);
                 }
         }
+    }
+
+    private void changeProductDescription() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("enter id of product to change the description");
+        Product prd = productService.findProductById(Long.valueOf(scanner.nextLine()));
+        if(prd!=null){
+            System.out.println("Current description is: "+prd.getDescription());
+            System.out.println("Enter product description: ");
+            String description = String.valueOf(scanner.nextLine());
+            prd.setDescription(description);
+
+        }
+
     }
 }

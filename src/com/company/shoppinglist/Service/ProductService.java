@@ -4,6 +4,7 @@ import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Database.product.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductService {
     Collection repository = new Collection();
@@ -25,12 +26,9 @@ public class ProductService {
         return product;
     }
 
-    public ArrayList<Product> GetAllProduct(){
-        ArrayList productlist=new ArrayList();
-        for (int i=0;i==repository.getsize();i++){
-            Product product=repository.findProductById(Long.valueOf(i));
-            productlist.add(product);
-        }
-        return productlist;
+    public ArrayList<Long> GetAllProduct(){
+        List<Long> productIDlist=new ArrayList();
+        productIDlist = repository.getallids();
+        return (ArrayList<Long>) productIDlist;
     }
 }

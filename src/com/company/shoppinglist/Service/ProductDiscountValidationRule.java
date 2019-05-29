@@ -10,9 +10,9 @@ public class ProductDiscountValidationRule extends ProductNameValidationRule imp
     @Override
     public void validate(Product product) throws ProductValidationException {
         BigDecimal max = BigDecimal.valueOf(80);
-        BigDecimal min = BigDecimal.valueOf(20);
+        //BigDecimal min = BigDecimal.valueOf(20);
         if((product.getDiscount().compareTo(max))>0) throw new ProductValidationException("Discount must be lower than 80%");
-        if((product.getDiscount().compareTo(min))<0) throw new ProductValidationException("Discount must be greater than 20%");
+        //if((product.getDiscount().compareTo(min))<0) throw new ProductValidationException("Discount must be greater than 20%");
 
     }
 
