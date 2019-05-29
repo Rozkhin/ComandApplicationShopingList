@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ProductValidationService {
-    private Set<ProductNameValidationRule> validationRules = new HashSet<>();
+    private Set<ProductValidationRule> validationRules = new HashSet<>();
 
     public ProductValidationService(){
         validationRules.add(new ProductNameValidationRule());
@@ -16,7 +16,7 @@ public class ProductValidationService {
 
     public Boolean validate(Product product){
         Boolean result = true;
-        for (ProductNameValidationRule s : validationRules) {
+        for (ProductValidationRule s : validationRules) {
             try {
                 s.validate(product);
             } catch (ProductValidationException e) {

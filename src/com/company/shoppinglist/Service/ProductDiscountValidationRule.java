@@ -5,7 +5,7 @@ import com.company.shoppinglist.Database.product.Product;
 
 import java.math.BigDecimal;
 
-public class ProductDiscountValidationRule extends ProductNameValidationRule implements ProductValidationRule{
+public class ProductDiscountValidationRule implements ProductValidationRule{
 
     @Override
     public void validate(Product product) throws ProductValidationException {
@@ -16,8 +16,8 @@ public class ProductDiscountValidationRule extends ProductNameValidationRule imp
 
     }
 
-    @Override
-    public void checkNotNull(Product product) throws ProductValidationException {
-
-    }
+//    @Override
+//    public void checkNotNull(Product product) throws ProductValidationException {
+//
+//    }
 }
