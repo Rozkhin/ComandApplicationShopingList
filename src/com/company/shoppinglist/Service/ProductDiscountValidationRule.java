@@ -2,11 +2,9 @@ package com.company.shoppinglist.Service;
 
 import com.company.shoppinglist.Database.product.Product;
 
-
 import java.math.BigDecimal;
 
-public class ProductDiscountValidationRule extends ProductNameValidationRule implements ProductValidationRule{
-
+public class ProductDiscountValidationRule implements ProductValidationRule{
     @Override
     public void validate(Product product) throws ProductValidationException {
         BigDecimal max = BigDecimal.valueOf(80);
@@ -16,8 +14,4 @@ public class ProductDiscountValidationRule extends ProductNameValidationRule imp
 
     }
 
-    @Override
-    public void checkNotNull(Product product) throws ProductValidationException {
-
-    }
 }

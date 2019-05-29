@@ -88,7 +88,7 @@ public class ConsoleI {
 
     private void FindProducById() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Enter Id to found product by id number: ");
+        System.out.println("1. Enter Id to find product by id number: ");
         System.out.println("2. Show all products: ");
         System.out.println("3. Exit ");
         Integer userInput = Integer.valueOf(scanner.nextLine());
@@ -96,8 +96,10 @@ public class ConsoleI {
             case 1:
                 System.out.println("Enter id: ");
                 Product prd = productService.findProductById(scanner.nextLong());
-                if(prd==null){System.out.println("no such id");}
-                printProduct(prd);
+                if(prd==null){
+                    System.out.println("no such id");
+                }else
+                    printProduct(prd);
                 break;
             case 2:
                 ArrayList<Long> Idlist;

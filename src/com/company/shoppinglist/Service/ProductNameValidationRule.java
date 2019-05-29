@@ -2,10 +2,7 @@ package com.company.shoppinglist.Service;
 
 import com.company.shoppinglist.Database.product.Product;
 
-
 public class ProductNameValidationRule implements ProductValidationRule{
-
-
     @Override
     public void validate(Product product) throws ProductValidationException {
         checkNotNull(product);

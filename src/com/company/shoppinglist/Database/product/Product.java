@@ -1,12 +1,8 @@
 package com.company.shoppinglist.Database.product;
 
-
 import java.math.BigDecimal;
 
-
 public class Product {
-
-
     private Long id;
     private String name;
     private BigDecimal price;
@@ -34,11 +30,11 @@ public class Product {
     public void setDescription(String description) {this.description = description;}
 
     public void setDiscount(BigDecimal discount) {
-        if (price.doubleValue() > 20) {
-            this.discount = discount;
+        if (price.compareTo(BigDecimal.valueOf(20.00)) >= 0) {
+            this.discount = discount.setScale(1, BigDecimal.ROUND_HALF_UP);
             this.actualPrice = price.subtract(price.multiply(discount.divide(BigDecimal.valueOf(100.00), 2, BigDecimal.ROUND_HALF_UP))).setScale(2, BigDecimal.ROUND_HALF_UP);
         } else {
-            this.discount = new BigDecimal(0.00);
+            this.discount = new BigDecimal(0.0);
             this.actualPrice = this.price;
         }
     }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 public  class Collection
 {
-
     Map<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;
 

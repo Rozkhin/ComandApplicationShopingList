@@ -2,7 +2,6 @@ package com.company.shoppinglist.Service;
 
 import com.company.shoppinglist.Database.product.Product;
 
-
 public interface ProductValidationRule {
 
     void validate(Product product) throws ProductValidationException;
