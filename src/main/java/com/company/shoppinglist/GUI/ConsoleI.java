@@ -76,7 +76,7 @@ public class ConsoleI {
 
     }
 
-    public static void printProduct(Product p) {
+   public static void printProduct(Product p) {
         System.out.println(p.getId() + " | "
                 + p.getName() + " | "
                 + p.getPrice() + " | "
