@@ -1,16 +1,20 @@
 package com.company.shoppinglist.Service;
 
+import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Database.product.Product;
 
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class ProductValidationService {
+
+
     private Set<ProductValidationRule> validationRules = new HashSet<>();
 
-    public ProductValidationService(){
-        validationRules.add(new ProductNameValidationRule());
-        validationRules.add(new ProductDiscountValidationRule());
+    public ProductValidationService(Set<ProductValidationRule> productColection) {
+        this.validationRules = productColection;
+        System.out.println("Validation service is started");
     }
 
     public Boolean validate(Product product){

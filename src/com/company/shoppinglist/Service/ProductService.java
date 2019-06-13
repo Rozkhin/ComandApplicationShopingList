@@ -7,8 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
-    Collection repository = new Collection();
-    private ProductValidationService validationService = new ProductValidationService();
+
+    Collection repository;
+    ProductValidationService validationService;
+
+    public ProductService(Collection repository,ProductValidationService validationService) {
+        this.repository = repository;
+        this.validationService=validationService;
+    }
 
     public Long createProduct(Product product){
         boolean result =validationService.validate(product);

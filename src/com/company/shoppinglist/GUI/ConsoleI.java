@@ -1,8 +1,11 @@
 package com.company.shoppinglist.GUI;
 
+import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Database.product.Product;
 import com.company.shoppinglist.Database.product.ProductTypes;
 import com.company.shoppinglist.Service.ProductService;
+import com.company.shoppinglist.Service.ShopingListService;
+
 
 
 import java.lang.reflect.Type;
@@ -12,7 +15,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleI {
-    private ProductService productService = new ProductService();
+    ProductService productService;
+    ShopingListService shopingListService;
+    public ConsoleI(ProductService productService,ShopingListService shopingListService) {
+        this.productService =productService;
+        this.shopingListService=shopingListService;
+    }
 
     public void execute() {
         while (true) {
@@ -21,7 +29,8 @@ public class ConsoleI {
                 System.out.println("1. Create product");
                 System.out.println("2. Show information about product by id");
                 System.out.println("3. Change product description ");
-                System.out.println("4. Exit");
+                System.out.println("4. Add product to shopping list");
+                System.out.println("5. Exit");
                 Integer userInput = Integer.valueOf(scanner.nextLine());
                 switch (userInput) {
                     case 1:
@@ -34,6 +43,9 @@ public class ConsoleI {
                         changeProductDescription();
                         break;
                     case 4:
+                        addProductToShopingList();
+                        break;
+                    case 5:
                         return;
                 }
             } catch (Exception e) {
@@ -44,36 +56,40 @@ public class ConsoleI {
     }
 
     private void CreateProduct() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product name: ");
-        String name = scanner.nextLine();
-        System.out.println("Enter product price: ");
-        BigDecimal price = new BigDecimal(scanner.nextLine());
-        System.out.println("Enter product discount: ");
-        BigDecimal discount = new BigDecimal(scanner.nextLine());
-        System.out.println("Enter product category: ");
-        ProductTypes Type;
-        do {
-            for (ProductTypes pt : ProductTypes.values()) {
-                System.out.println(pt.ordinal() + ". " + pt.toString());
-            }
-            int userInput = Integer.valueOf(scanner.nextLine());
-            Type = ProductTypes.getProductById(userInput);
-            if (Type == null) {
-                System.out.println("no such product type");
-            }
-        } while (Type == null);
-        System.out.println("Enter product description: ");
-        String description = scanner.nextLine();
-        Product prd = new Product();
-        prd.setName(name);
-        prd.setPrice(price);
-        prd.setDiscount(discount);
-        prd.setType(Type);
-        prd.setDescription(description);
-        Long id = productService.createProduct(prd);
-        if (id == null) System.out.println("Can't create product");
+        try {
 
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter product name: ");
+            String name = scanner.nextLine();
+            System.out.println("Enter product price: ");
+            BigDecimal price = new BigDecimal(scanner.nextLine());
+            System.out.println("Enter product discount: ");
+            BigDecimal discount = new BigDecimal(scanner.nextLine());
+            System.out.println("Enter product category: ");
+            ProductTypes Type;
+            do {
+                for (ProductTypes pt : ProductTypes.values()) {
+                    System.out.println(pt.ordinal() + ". " + pt.toString());
+                }
+                int userInput = Integer.valueOf(scanner.nextLine());
+                Type = ProductTypes.getProductById(userInput);
+                if (Type == null) {
+                    System.out.println("no such product type");
+                }
+            } while (Type == null);
+            System.out.println("Enter product description: ");
+            String description = scanner.nextLine();
+            Product prd = new Product();
+            prd.setName(name);
+            prd.setPrice(price);
+            prd.setDiscount(discount);
+            prd.setType(Type);
+            prd.setDescription(description);
+            Long id = productService.createProduct(prd);
+            if (id == null) System.out.println("Can't create product");
+        } catch (NumberFormatException e) {
+            System.out.println("Must be numeric value");
+        }
     }
 
     public static void printProduct(Product p) {
@@ -123,5 +139,28 @@ public class ConsoleI {
 
         }
 
+    }
+
+    private void addProductToShopingList(){
+        try {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Add product to SL");
+        System.out.println("2. Show all SL product");
+        System.out.println("3. Delete product from SL");
+        Integer Userinput =Integer.valueOf(scanner.nextLine());
+        switch (Userinput){
+            case 1:
+                System.out.println("Enter product id to add in Shopping list: ");
+                shopingListService.AddproductByIdToShopingList(productService.findProductById(scanner.nextLong()));
+                System.out.println("Product added");
+                break;
+            case 2:
+                shopingListService.ShowAllList();
+                break;
+            default:
+                System.out.println("No such option");
+        }
+    }catch (Exception e){System.out.println("Error");}
     }
 }
