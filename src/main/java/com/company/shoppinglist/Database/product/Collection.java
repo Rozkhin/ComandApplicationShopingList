@@ -1,12 +1,15 @@
 package com.company.shoppinglist.Database.product;
 
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+@Component
 public class Collection {
     Map<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;

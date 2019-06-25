@@ -5,7 +5,8 @@ import com.company.shoppinglist.Database.product.Product;
 import com.company.shoppinglist.Database.product.ProductTypes;
 import com.company.shoppinglist.Service.ProductService;
 import com.company.shoppinglist.Service.ShopingListService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 import java.lang.reflect.Type;
@@ -13,10 +14,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
-
+@Component
 public class ConsoleI {
     ProductService productService;
     ShopingListService shopingListService;
+
+    @Autowired
     public ConsoleI(ProductService productService,ShopingListService shopingListService) {
         this.productService =productService;
         this.shopingListService=shopingListService;

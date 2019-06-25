@@ -2,16 +2,18 @@ package com.company.shoppinglist.Service;
 
 import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Database.product.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Component
 public class ProductValidationService {
 
 
-    private Set<ProductValidationRule> validationRules = new HashSet<>();
-
+    private Set<ProductValidationRule> validationRules;
+@Autowired
     public ProductValidationService(Set<ProductValidationRule> productColection) {
         this.validationRules = productColection;
         System.out.println("Validation service is started");
