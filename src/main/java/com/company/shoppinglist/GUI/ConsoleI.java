@@ -1,28 +1,27 @@
 package com.company.shoppinglist.GUI;
 
-import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Database.product.Product;
 import com.company.shoppinglist.Database.product.ProductTypes;
 import com.company.shoppinglist.Service.ProductService;
-import com.company.shoppinglist.Service.ShopingListService;
+import com.company.shoppinglist.Service.ShopingCard;
+import com.company.shoppinglist.Service.ShopingCardList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 @Component
 public class ConsoleI {
     ProductService productService;
-    ShopingListService shopingListService;
-
+    ShopingCard CurrSc ;
+    ShopingCardList SCList;
     @Autowired
-    public ConsoleI(ProductService productService,ShopingListService shopingListService) {
+    public ConsoleI(ProductService productService,ShopingCardList SCList) {
         this.productService =productService;
-        this.shopingListService=shopingListService;
+        this.SCList = SCList;
+
     }
 
     public void execute() {
@@ -148,22 +147,53 @@ public class ConsoleI {
         try {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Add product to SL");
-        System.out.println("2. Show all SL product");
-        System.out.println("3. Delete product from SL");
+        System.out.println("1. Create new shopping list");
+        System.out.println("2. Add product to current cart");
+        System.out.println("3. Show all SL product");
+        System.out.println("4. Delete product from SL");
+        System.out.println("5. Save shopping cart");
+        System.out.println("6. Load shopping cart");
+        System.out.println("7. Show all shopping carts");
         Integer Userinput =Integer.valueOf(scanner.nextLine());
+
         switch (Userinput){
             case 1:
-                System.out.println("Enter product id to add in Shopping list: ");
-                shopingListService.AddproductByIdToShopingList(productService.findProductById(scanner.nextLong()));
-                System.out.println("Product added");
-                break;
+                ShopingCard Sc = new ShopingCard();
+                scanner = new Scanner(System.in);
+                System.out.println("Enter cart name: ");
+                Sc.setName(scanner.nextLine());
+                System.out.println("Enter shopping cart Description");
+                Sc.setDescr(scanner.nextLine());
+                SCList.insert(Sc);
+                SCList.shopingCard=Sc;
             case 2:
-                shopingListService.ShowAllList();
+                if(SCList.shopingCard!=null) {
+                    System.out.println("Enter product id to add in Shopping list: ");
+                    SCList.shopingCard.Cart.insert(productService.findProductById(scanner.nextLong()));
+                    System.out.println("Product added");
+                }
+                else {
+                    System.out.println("No cart selected");
+                }
+                    break;
+
+            case 3:
+
+                SCList.shopingCard.Cart.getallids();
                 break;
+            case 4:
+                  System.out.println("Under construction");
+            case 5:
+                SCList.insert(SCList.shopingCard);
+                System.out.println("Shopping cart saved");
+            case 6:
+                System.out.println("Enter Shopping Cart id");
+                SCList.findCartById(scanner.nextLong());
+                System.out.println("card loaded");
             default:
                 System.out.println("No such option");
         }
+
     }catch (Exception e){System.out.println("Error");}
     }
 }

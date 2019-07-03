@@ -1,5 +1,6 @@
 package com.company.shoppinglist.GUI;
 
+import com.company.shoppinglist.Config.AppConfig;
 import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Service.*;
 import javafx.application.Application;
@@ -14,7 +15,7 @@ class ShoppingListApplication {
 
     public static void main(String[] args) {
 
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
         ConsoleI consoleI = ctx.getBean(ConsoleI.class);
         consoleI.execute();
        // Collection repository= new Collection();
