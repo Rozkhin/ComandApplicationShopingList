@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 @Component
 public class ConsoleI {
@@ -178,8 +179,14 @@ public class ConsoleI {
                     break;
 
             case 3:
+                ArrayList<Long> Idlist = null;
+                Idlist = (ArrayList<Long>) SCList.shopingCard.Cart.getallids();
+                for (Long id:Idlist) {
+                    Product prd1 = productService.findProductById(id);
+                    printProduct(prd1);
 
-                SCList.shopingCard.Cart.getallids();
+                }
+
                 break;
             case 4:
                   System.out.println("Under construction");
