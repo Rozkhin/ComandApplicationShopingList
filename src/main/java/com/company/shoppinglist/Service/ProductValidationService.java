@@ -1,11 +1,9 @@
 package com.company.shoppinglist.Service;
 
-import com.company.shoppinglist.Database.product.Collection;
 import com.company.shoppinglist.Database.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Component

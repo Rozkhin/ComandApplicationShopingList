@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 @Component
-public class Collection {
+public class ProductCollection {
     Map<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;
 

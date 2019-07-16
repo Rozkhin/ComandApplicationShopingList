@@ -1,10 +1,10 @@
 package com.company.shoppinglist.GUI;
 
+import com.company.shoppinglist.Database.product.Cart;
 import com.company.shoppinglist.Database.product.Product;
 import com.company.shoppinglist.Database.product.ProductTypes;
+import com.company.shoppinglist.Service.CartService;
 import com.company.shoppinglist.Service.ProductService;
-import com.company.shoppinglist.Service.ShopingCard;
-import com.company.shoppinglist.Service.ShopingCardList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,16 +12,17 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 @Component
 public class ConsoleI {
     ProductService productService;
-    ShopingCard CurrSc ;
-    ShopingCardList SCList;
+    CartService cartService;
+
     @Autowired
-    public ConsoleI(ProductService productService,ShopingCardList SCList) {
+    public ConsoleI(ProductService productService,CartService cartService) {
         this.productService =productService;
-        this.SCList = SCList;
+        this.cartService=cartService;
 
     }
 
@@ -95,7 +96,7 @@ public class ConsoleI {
         }
     }
 
-   public static void printProduct(Product p) {
+   public void printProduct(Product p) {
         System.out.println(p.getId() + " | "
                 + p.getName() + " | "
                 + p.getPrice() + " | "
@@ -103,6 +104,17 @@ public class ConsoleI {
                 + p.getDiscount() + " | "
                 + p.getActualPrice() + " | "
                 + p.getDescription());
+    }
+
+    public String printProducttostr(Product p) {
+        String tmpstr=(p.getId() + " | "
+                + p.getName() + " | "
+                + p.getPrice() + " | "
+                + p.getType().toString() + " | "
+                + p.getDiscount() + " | "
+                + p.getActualPrice() + " | "
+                + p.getDescription());
+        return tmpstr;
     }
 
     private void FindProducById() {
@@ -159,48 +171,77 @@ public class ConsoleI {
 
         switch (Userinput){
             case 1:
-                ShopingCard Sc = new ShopingCard();
                 scanner = new Scanner(System.in);
                 System.out.println("Enter cart name: ");
-                Sc.setName(scanner.nextLine());
+                String name = scanner.nextLine();
                 System.out.println("Enter shopping cart Description");
-                Sc.setDescr(scanner.nextLine());
-                SCList.insert(Sc);
-                SCList.shopingCard=Sc;
+                String description =(scanner.nextLine());
+                System.out.println(name+"  "+description);
+                cartService.Newcart(name,description);
+                break;
+
             case 2:
-                if(SCList.shopingCard!=null) {
-                    System.out.println("Enter product id to add in Shopping list: ");
-                    SCList.shopingCard.Cart.insert(productService.findProductById(scanner.nextLong()));
+                Cart Sc = cartService.getCurrentcart();
+                if(Sc == null){break;}
+                System.out.println("Enter product id to add in Shopping list: ");
+                Long id= scanner.nextLong();
+                Product prd = productService.findProductById(id);
+                if(prd!=null) {
+                    Sc.insert(prd);
                     System.out.println("Product added");
+                }else {
+                    System.out.println("No such product");
                 }
-                else {
-                    System.out.println("No cart selected");
-                }
-                    break;
+                break;
 
             case 3:
-                ArrayList<Long> Idlist = null;
-                Idlist = (ArrayList<Long>) SCList.shopingCard.Cart.getallids();
-                for (Long id:Idlist) {
-                    Product prd1 = productService.findProductById(id);
-                    printProduct(prd1);
-
+                Map<Long,Product> tmpList ;
+                tmpList = cartService.getCurrentCartProducts();
+                for (Map.Entry<Long,Product>n:tmpList.entrySet()) {
+                    id = n.getKey();
+                    String productstr = printProducttostr(n.getValue());
+                    System.out.println(id+"  "+productstr);
                 }
 
                 break;
+
             case 4:
-                  System.out.println("Under construction");
+                System.out.println("Select product for delete");
+                Map<Long,Product> tmpMap = cartService.getCurrentCartProducts();
+                for (Map.Entry<Long, Product> n : tmpMap.entrySet()) {
+                    Long tmpid = n.getKey();
+                    Product tmpProduct =n.getValue();
+                    System.out.println("Id: "+tmpid+"  "+printProducttostr(tmpProduct));
+                }
+                Long idfordel =Long.valueOf(scanner.nextLine());
+                cartService.deleteProductFromCurrentCart(idfordel);
+                break;
             case 5:
-                SCList.insert(SCList.shopingCard);
-                System.out.println("Shopping cart saved");
+                cartService.savecart();
+                System.out.println("Cart saved");
             case 6:
-                System.out.println("Enter Shopping Cart id");
-                SCList.findCartById(scanner.nextLong());
-                System.out.println("card loaded");
+                Map<Long,Cart> tmprep=cartService.getallcardsfromrep();
+                for (Map.Entry<Long,Cart> n:tmprep.entrySet()){
+                    Long cartid= n.getKey();
+                    String cartname = n.getValue().getName();
+                    System.out.println(cartid+": "+cartname);
+                }
+                System.out.println("Select a cart to load");
+                Long userinput = scanner.nextLong();
+                cartService.loadCart(userinput);
+            case 7:
+                tmprep=cartService.getallcardsfromrep();
+                for (Map.Entry<Long,Cart> n:tmprep.entrySet()){
+                    Long cartid= n.getKey();
+                    String cartname = n.getValue().getName();
+                    System.out.println(cartid+": "+cartname);
+                }
+                break;
             default:
                 System.out.println("No such option");
+                break;
         }
 
-    }catch (Exception e){System.out.println("Error");}
+    }catch (Exception e){System.out.println("Error" +e.toString());e.printStackTrace();}
     }
 }
