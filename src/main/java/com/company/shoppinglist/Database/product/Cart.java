@@ -2,22 +2,28 @@ package com.company.shoppinglist.Database.product;
 
 import com.company.shoppinglist.Database.product.Product;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Entity
+@Table(name = "Cart")
 public class Cart {
 
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "name")
     String name;
 
+    @Column(name = "description")
     String description;
 
-    //public Cart(String name, String description) {
-    //  this.name = name;
-    //    this.description = description;
-    //}
+    @JoinColumn(name = "id")
+    @OneToMany
 
     Map<Long, Product> InCartproductRepository = new HashMap<>();
     private Long productIdSequence = 0L;

@@ -1,14 +1,37 @@
 package com.company.shoppinglist.Database.product;
 
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "product")
 public class Product {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "discount")
     private BigDecimal discount;
+
+    @Column(name = "actualPrice")
     private BigDecimal actualPrice;
+
+    @Column(name = "type")
     private ProductTypes type;
 
     public Long getId() { return id; }
