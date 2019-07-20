@@ -1,14 +1,14 @@
 package com.company.shoppinglist.Database.product;
 
 import org.hibernate.annotations.*;
+import org.hibernate.mapping.Table;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product")
+@javax.persistence.Table(name = "Product")
 public class Product {
 
     @Id
