@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -25,7 +26,7 @@ public class Cart {
     @Column(name = "cartDescription")
     private String description;
     @ManyToMany(fetch = FetchType.EAGER)
-   ArrayList<Product> InCartproductRepository = new ArrayList<>();
+    List<Product> InCartproductRepository = new ArrayList<>();
 
     public Product insert(Product product) {
         InCartproductRepository.add(product);
@@ -53,7 +54,7 @@ public class Cart {
     }
 
     public ArrayList getAllids() {
-        return InCartproductRepository;
+        return (ArrayList) InCartproductRepository;
     }
 
     public void deleteproduct(int id) {
@@ -65,6 +66,6 @@ public class Cart {
     }
 
     public ArrayList<Product> GetRepository(){
-        return InCartproductRepository;
+        return (ArrayList<Product>) InCartproductRepository;
     }
 }
