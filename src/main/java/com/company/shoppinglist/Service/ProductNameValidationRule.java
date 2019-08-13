@@ -1,15 +1,15 @@
 package com.company.shoppinglist.Service;
 
-import com.company.shoppinglist.Database.product.ProductCollection;
+import com.company.shoppinglist.Database.product.ProdRep;
 import com.company.shoppinglist.Database.product.Product;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductNameValidationRule implements ProductValidationRule{
 
-    private final ProductCollection repository;
+    private final ProdRep repository;
 
-    public ProductNameValidationRule(ProductCollection repository) {
+    public ProductNameValidationRule(ProdRep repository) {
         this.repository=repository;
     }
 

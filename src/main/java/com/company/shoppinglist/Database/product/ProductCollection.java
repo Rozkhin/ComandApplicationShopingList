@@ -2,6 +2,7 @@ package com.company.shoppinglist.Database.product;
 
 
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +11,8 @@ import java.util.Map;
 
 
 
-@Repository
-@Profile("inmemory")
-public class ProductCollection implements Collection {
+
+public class ProductCollection implements ProdRep {
     Map<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;
 

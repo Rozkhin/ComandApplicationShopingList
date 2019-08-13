@@ -15,12 +15,12 @@ import java.util.Map;
 @Repository
 @Profile("hibernate")
 @Transactional
-public class ProductCollectionHibernate implements Collection{
+public class ProdCollectionHibernate implements ProdRep {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public ProductCollectionHibernate(SessionFactory sessionFactory) {
+    public ProdCollectionHibernate(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

@@ -2,16 +2,22 @@ package com.company.shoppinglist.Service;
 
 import com.company.shoppinglist.Database.product.Cart;
 import com.company.shoppinglist.Database.product.CartCollection;
+import com.company.shoppinglist.Database.product.CartRep;
 import com.company.shoppinglist.Database.product.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 @Component
 public class CartService {
-    public CartCollection cartList = new CartCollection();
+    public CartRep cartList;
     Cart currentCart;
+@Autowired
+    public CartService(CartRep cartList) {
+        this.cartList = cartList;
+    }
 
-    public void Newcart(String Name,String descr) {
+    public void Newcart(String Name, String descr) {
         currentCart=new Cart();
         currentCart.setName(Name);
         currentCart.setDescription(descr);
@@ -31,11 +37,11 @@ public class CartService {
         }
     }
 
-    public Map<Long, Product> getCurrentCartProducts(){
+    public ArrayList<Product> getCurrentCartProducts(){
         return currentCart.GetRepository();
     }
 
-    public void deleteProductFromCurrentCart(Long id1){
+    public void deleteProductFromCurrentCart(Integer id1){
         currentCart.deleteproduct(id1);
     }
 
@@ -47,8 +53,13 @@ public class CartService {
         Map<Long, Cart> tmprep= cartList.getAllcarts();
         return tmprep;
     }
+
     public void loadCart(Long id){
         currentCart=cartList.Getcart(id);
+    }
+
+    public void deletecart(Long id){
+        cartList.deleteCart(id);
     }
 
    }

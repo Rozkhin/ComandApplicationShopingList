@@ -1,4 +1,4 @@
-package com.company.shoppinglist.Config;
+package com.company.shoppinglist;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;

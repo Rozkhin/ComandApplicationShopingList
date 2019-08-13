@@ -1,9 +1,12 @@
 package com.company.shoppinglist.Database.product;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
-
-public interface Collection {
+@Component
+public interface ProdRep {
 
     public Product insert(Product product);
 

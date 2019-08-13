@@ -1,37 +1,34 @@
 package com.company.shoppinglist.Database.product;
 
 import com.company.shoppinglist.Database.product.Product;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 @Entity
 @Table(name = "Cart")
+
 public class Cart {
 
+
     @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "name")
-    String name;
-
-    @Column(name = "description")
-    String description;
-
-    @JoinColumn(name = "id")
-    @OneToMany
-
-    Map<Long, Product> InCartproductRepository = new HashMap<>();
-    private Long productIdSequence = 0L;
+    @Column(name ="id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Long id;
+    @Column(name = "cartName")
+    private String name;
+    @Column(name = "cartDescription")
+    private String description;
+    @ManyToMany(fetch = FetchType.EAGER)
+   ArrayList<Product> InCartproductRepository = new ArrayList<>();
 
     public Product insert(Product product) {
-        product.setId(productIdSequence);
-        InCartproductRepository.put(productIdSequence, product);
-        productIdSequence++;
+        InCartproductRepository.add(product);
         return product;
     }
 
@@ -56,24 +53,18 @@ public class Cart {
     }
 
     public ArrayList getAllids() {
-        ArrayList<Product> PrdList = new ArrayList<>();
-        for (Map.Entry<Long, Product> n : InCartproductRepository.entrySet()) {
-            Product Cprd = n.getValue();
-            PrdList.add(Cprd);
-        }
-        return PrdList;
+        return InCartproductRepository;
     }
 
-    public void deleteproduct(Long id) {
+    public void deleteproduct(int id) {
          InCartproductRepository.remove(id);
     }
-
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Map<Long, Product> GetRepository(){
+    public ArrayList<Product> GetRepository(){
         return InCartproductRepository;
     }
 }
