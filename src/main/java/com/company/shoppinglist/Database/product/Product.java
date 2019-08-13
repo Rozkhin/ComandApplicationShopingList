@@ -5,8 +5,6 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Entity(name = "Product")

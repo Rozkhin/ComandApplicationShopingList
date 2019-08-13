@@ -38,4 +38,8 @@ public class ProductService {
         productIDlist = repository.getallids();
         return (ArrayList<Long>) productIDlist;
     }
+
+    public void deleteproduct(Long id){
+    repository.delete(id);
+    }
 }

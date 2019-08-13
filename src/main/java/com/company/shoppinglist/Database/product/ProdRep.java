@@ -23,4 +23,6 @@ public interface ProdRep {
     public Cart Getcart(Long id);
 
     public Map<Long, Cart> getAllcarts();
+
+    public void delete(Long id);
 }

@@ -222,7 +222,8 @@ public class ConsoleI {
                     cartService.deleteProductFromCurrentCart(idfordel);
                     break;
                 case 5:
-                    cartService.savecart();
+                    Cart ccart =cartService.getCurrentcart();
+                    cartService.savecart(ccart);
                     System.out.println("Cart saved");
                 case 6:
                     Map<Long, Cart> tmprep = cartService.getallcardsfromrep();

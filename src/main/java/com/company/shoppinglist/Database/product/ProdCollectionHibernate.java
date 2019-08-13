@@ -49,7 +49,7 @@ public class ProdCollectionHibernate implements ProdRep {
 
     public boolean existbyName(String productName) {
         Product product= (Product) sessionFactory.getCurrentSession().createCriteria(Product.class)
-                .add(Restrictions.eq("Name",productName))
+                .add(Restrictions.eq("name",productName))
                 .uniqueResult();
         return product != null;
     }

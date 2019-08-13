@@ -59,4 +59,9 @@ public class ProductCollection implements ProdRep {
     public Map<Long, Cart> getAllcarts() {
         return null;
     }
+
+    @Override
+    public void delete(Long id) {
+        productRepository.remove(id);
+    }
 }
