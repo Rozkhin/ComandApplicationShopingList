@@ -1,14 +1,10 @@
 package com.company.shoppinglist.Database.product;
 
-import com.company.shoppinglist.Database.product.Product;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "Cart")
@@ -27,6 +23,7 @@ public class Cart {
     private String description;
     @ManyToMany(fetch = FetchType.EAGER)
     List<Product> InCartproductRepository = new ArrayList<>();
+    private List<Product> productList;
 
     public Product insert(Product product) {
         InCartproductRepository.add(product);
@@ -68,4 +65,13 @@ public class Cart {
     public ArrayList<Product> GetRepository(){
         return (ArrayList<Product>) InCartproductRepository;
     }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
 }

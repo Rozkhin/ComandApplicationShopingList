@@ -1,7 +1,6 @@
 package com.company.shoppinglist.Service;
 
 import com.company.shoppinglist.Database.product.Cart;
-import com.company.shoppinglist.Database.product.CartCollection;
 import com.company.shoppinglist.Database.product.CartRep;
 import com.company.shoppinglist.Database.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,12 @@ public class CartService {
         this.cartList = cartList;
     }
 
-    public void Newcart(String Name, String descr) {
+    public Long Newcart(String Name, String descr) {
         currentCart=new Cart();
         currentCart.setName(Name);
         currentCart.setDescription(descr);
-        savecart();
+        savecart(currentCart);
+        return currentCart.getId();
     }
 
     public void SetCart(Cart cart){
@@ -45,8 +45,8 @@ public class CartService {
         currentCart.deleteproduct(id1);
     }
 
-    public void savecart(){
-        cartList.insert(currentCart);
+    public void savecart(Cart cart){
+        cartList.insert(cart);
     }
 
     public  Map<Long, Cart> getallcardsfromrep(){
@@ -61,5 +61,6 @@ public class CartService {
     public void deletecart(Long id){
         cartList.deleteCart(id);
     }
+
 
    }
